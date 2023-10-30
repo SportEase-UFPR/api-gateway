@@ -4,9 +4,9 @@ server:
 # Configurações do Banco de dados
 spring:
   datasource:
-    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?createDatabaseIfNotExist=true
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://dpg-ckvf3dmb0mos7397h3o0-a.oregon-postgres.render.com/credenciais
+    username: renderpostgres
+    password: dXQdih2FZgFhNCBqvHBETBjS2Dau11b8
   jpa:
     show-sql: true
     hibernate:
@@ -33,9 +33,9 @@ api:
 url:
   ms:
     cadastros:
-      adm: ${MS_CADASTROS_ADM_URL:http://localhost:8081/adm}
-      clientes: ${MS_CADASTROS_CLIENTES_URL:http://localhost:8081/clientes}
-      espacos_esportivos: ${MS_CADASTROS_ESPACOES_ESPORTIVOS_URL:http://localhost:8081/espacos-esportivos}
-      esportes: ${MS_CADASTROS_ESPORTES_URL:http://localhost:8081/esportes}
-      usuarios: ${MS_CADASTROS_USUARIOS_URL:http://localhost:8081/usuarios}
-    locacoes: ${MS_LOCACOES_URL:http://localhost:8082/locacoes}
+      adm: http://localhost:8081/adm
+      clientes: http://localhost:8081/clientes
+      espacos_esportivos: http://localhost:8081/espacos-esportivos
+      esportes: http://localhost:8081/esportes
+      usuarios: http://localhost:8081/usuarios
+    locacoes: http://localhost:8082/locacoes
