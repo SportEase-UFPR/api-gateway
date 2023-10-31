@@ -2,6 +2,7 @@ package br.ufpr.sportease.apigateway.controller.locacoes;
 
 
 import br.ufpr.sportease.apigateway.client.MsLocacoesClient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +13,7 @@ import java.util.List;
 @CrossOrigin(origins ="*")
 @RestController
 @RequestMapping("/locacoes")
+@Slf4j
 public class LocacaoController {
 
     private final MsLocacoesClient msLocacoesClient;
@@ -32,6 +34,7 @@ public class LocacaoController {
     @PreAuthorize("hasRole('CLIENTE') or hasRole('ADM')")
     public ResponseEntity<Object> verificarHorariosDisponiveisParaLocacao(
             @RequestBody Object horarioDisponivelRequest) {
+        log.info("INICIO verificarHorariosDisponiveisParaLocacao api-gateway");
         return ResponseEntity.status(HttpStatus.OK).body(msLocacoesClient.verificarHorariosDisponiveisParaLocacao(horarioDisponivelRequest));
     }
 
