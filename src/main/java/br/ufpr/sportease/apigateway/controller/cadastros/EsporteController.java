@@ -24,7 +24,7 @@ public class EsporteController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADM')")
+    @PreAuthorize("hasRole('ADM') or hasRole('CLIENTE')")
     public ResponseEntity<Object> listarEsportes() {
         return ResponseEntity.status(HttpStatus.OK).body(msCadastrosClient.listarEsportes());
     }
