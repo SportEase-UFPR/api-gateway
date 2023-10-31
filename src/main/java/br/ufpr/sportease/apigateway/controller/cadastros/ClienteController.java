@@ -59,7 +59,7 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.OK).body(msCadastrosClient.buscarIdClientePorIdUsuario(idUsuario));
     }
 
-    @GetMapping("/emails-clientes")
+    @GetMapping("/buscar-emails-clientes")
     @PreAuthorize("hasRole('ADM')")
     public ResponseEntity<List<Object>> buscarEmailsClientes() {
         return ResponseEntity.status(HttpStatus.OK).body(msCadastrosClient.buscarEmailsClientes());
