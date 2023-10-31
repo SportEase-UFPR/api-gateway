@@ -44,7 +44,7 @@ public class MsLocacoesClient {
 
     public Object verificarHorariosDisponiveisParaLocacao(Object request) {
         //String url = urlMsLocacoes + "/horarios-disponiveis";
-        String url = "https://api-gateway-production-75aa.up.railway.app/locacoes/horarios-disponiveis";
+        String url = "https://ms-locacoes-production.up.railway.app/locacoes/horarios-disponiveis";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
