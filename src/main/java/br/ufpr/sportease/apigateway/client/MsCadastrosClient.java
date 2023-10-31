@@ -210,7 +210,7 @@ public class MsCadastrosClient {
     }
 
     public List<Object> buscarEmailsClientes() {
-        String url = urlMsCadastrosClientes + "/emails-clientes";
+        String url = urlMsCadastrosClientes + "/buscar-emails-clientes";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
 
