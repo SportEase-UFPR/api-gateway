@@ -36,7 +36,7 @@ public class EspacoEsportivoController {
     }
 
     @GetMapping("/{espEsportivoId}")
-    @PreAuthorize("hasRole('ADM')")
+    @PreAuthorize("hasRole('CLIENTE') or hasRole('ADM')")
     public ResponseEntity<Object> buscarEspacoEsportivoPorId(@PathVariable Long espEsportivoId) {
         return ResponseEntity.status(HttpStatus.OK).body(msCadastrosClient.buscarEspacoEsportivoPorId(espEsportivoId));
     }
