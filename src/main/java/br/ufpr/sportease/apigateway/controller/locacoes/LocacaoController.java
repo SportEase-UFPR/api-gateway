@@ -64,4 +64,10 @@ public class LocacaoController {
             @RequestHeader("Authorization") String token) {
         return ResponseEntity.status(HttpStatus.OK).body(msLocacoesClient.confirmarUsoReserva(token, idReserva));
     }
+
+    @GetMapping("/listar-reservas-solicitadas")
+    @PreAuthorize("hasRole('ADM')")
+    public ResponseEntity<List<Object>> listarReservasSolicitadas() {
+        return ResponseEntity.status(HttpStatus.OK).body(msLocacoesClient.listarReservasSolicitadas());
+    }
 }

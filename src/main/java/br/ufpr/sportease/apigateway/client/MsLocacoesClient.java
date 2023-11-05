@@ -77,4 +77,10 @@ public class MsLocacoesClient {
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
     }
+
+    public List<Object> listarReservasSolicitadas() {
+        String url = urlMsLocacoes + "/listar-reservas-solicitadas";
+        HttpHeaders headers = gerarCabecalho();
+        return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
+    }
 }
