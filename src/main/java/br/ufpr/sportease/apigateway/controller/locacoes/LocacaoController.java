@@ -84,4 +84,10 @@ public class LocacaoController {
                                                @RequestBody Object negarReservaRequest) {
         return ResponseEntity.status(HttpStatus.OK).body(msLocacoesClient.negarReserva(idReserva, token, negarReservaRequest));
     }
+
+    @GetMapping("/relatorio-reservas")
+    @PreAuthorize("hasRole('ADM')")
+    public ResponseEntity<List<Object>> buscarRelatorioDeReservas() {
+        return ResponseEntity.status(HttpStatus.OK).body(msLocacoesClient.buscarRelatorioDeReservas());
+    }
 }
