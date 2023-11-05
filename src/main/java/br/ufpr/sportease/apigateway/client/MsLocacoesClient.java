@@ -84,9 +84,17 @@ public class MsLocacoesClient {
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
     }
 
-    public Object aprovarReserva(Long idReserva) {
+    public Object aprovarReserva(Long idReserva, String token) {
         String url = urlMsLocacoes + "/aprovar-reserva/" + idReserva;
         HttpHeaders headers = gerarCabecalho();
+        headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(headers), Object.class).getBody();
+    }
+
+    public Object negarReserva(Long idReserva, String token, Object request) {
+        String url = urlMsLocacoes + "/negar-reserva/" + idReserva;
+        HttpHeaders headers = gerarCabecalho();
+        headers.set(AUTHORIZATION_USER, token);
+        return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 }
