@@ -70,4 +70,11 @@ public class LocacaoController {
     public ResponseEntity<List<Object>> listarReservasSolicitadas() {
         return ResponseEntity.status(HttpStatus.OK).body(msLocacoesClient.listarReservasSolicitadas());
     }
+
+    @PutMapping("/aprovar-reserva/{idReserva}")
+    @PreAuthorize("hasRole('ADM')")
+    public ResponseEntity<Object> aprovarReserva(@PathVariable Long idReserva) {
+        return ResponseEntity.status(HttpStatus.OK).body(msLocacoesClient.aprovarReserva(idReserva));
+
+    }
 }
