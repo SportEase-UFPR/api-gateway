@@ -104,4 +104,11 @@ public class MsLocacoesClient {
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
 
     }
+
+    public Object avaliarReserva(Long idReserva, String token, Object request) {
+        String url = urlMsLocacoes + "/avaliar-reserva/" + idReserva;
+        HttpHeaders headers = gerarCabecalho();
+        headers.set(AUTHORIZATION_USER, token);
+        return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
+    }
 }
