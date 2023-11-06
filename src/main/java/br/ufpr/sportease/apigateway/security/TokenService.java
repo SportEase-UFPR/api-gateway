@@ -13,8 +13,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
-import static constants.HorarioBrasil.HORA_ATUAL;
-
 @Slf4j
 @Service
 public class TokenService {
