@@ -102,7 +102,6 @@ public class MsLocacoesClient {
         String url = urlMsLocacoes + "/relatorio-reservas";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
-
     }
 
     public Object avaliarReserva(Long idReserva, String token, Object request) {
@@ -110,5 +109,11 @@ public class MsLocacoesClient {
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
+    }
+
+    public List<Object> listarComentariosPorEspacoEsportivo(Long idEspacoEsportivo) {
+        String url = urlMsLocacoes + "/comentarios/" + idEspacoEsportivo;
+        HttpHeaders headers = gerarCabecalho();
+        return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
     }
 }
