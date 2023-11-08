@@ -43,7 +43,7 @@ public class MsComunicacoesClient {
     }
 
     public Object marcarNotificacoesComoLida(String token) {
-        String url = urlMsComunicacoesNotificacoes + "/marcar-como-lido";
+        String url = urlMsComunicacoesNotificacoes + "/marcar-como-lida";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(headers), Object.class).getBody();
