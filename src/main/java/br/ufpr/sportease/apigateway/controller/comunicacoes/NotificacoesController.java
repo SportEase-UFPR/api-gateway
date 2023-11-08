@@ -21,13 +21,13 @@ public class NotificacoesController {
 
     @GetMapping
     @PreAuthorize("hasRole('CLIENTE')")
-    public ResponseEntity<List<Object>> buscarNotificacoesCliente(@RequestHeader("AuthorizationUser") String token) {
+    public ResponseEntity<List<Object>> buscarNotificacoesCliente(@RequestHeader("Authorization") String token) {
         return ResponseEntity.status(HttpStatus.OK).body(msComunicacoesClient.buscarNotificacoesCliente(token));
     }
 
     @PutMapping("/marcar-como-lida")
     @PreAuthorize("hasRole('CLIENTE')")
-    public ResponseEntity<Object> marcarNotificacoesComoLida(@RequestHeader("AuthorizationUser") String token) {
+    public ResponseEntity<Object> marcarNotificacoesComoLida(@RequestHeader("Authorization") String token) {
         return ResponseEntity.status(HttpStatus.OK).body(msComunicacoesClient.marcarNotificacoesComoLida(token));
 
     }
