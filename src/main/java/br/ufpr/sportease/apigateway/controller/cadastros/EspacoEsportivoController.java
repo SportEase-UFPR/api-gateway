@@ -59,7 +59,7 @@ public class EspacoEsportivoController {
     }
 
     @GetMapping("/comentarios/{idEspacoEsportivo}")
-    @PreAuthorize("hasRole('ADM')")
+    @PreAuthorize("hasRole('ADM') or hasRole('CLIENTE')")
     public ResponseEntity<List<Object>> listarComentariosPorEspacoEsportivo(@PathVariable Long idEspacoEsportivo) {
         return ResponseEntity.status(HttpStatus.OK).body(msLocacoesClient.listarComentariosPorEspacoEsportivo(idEspacoEsportivo));
     }
