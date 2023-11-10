@@ -85,6 +85,14 @@ public class LocacaoController {
         return ResponseEntity.status(HttpStatus.OK).body(msLocacoesClient.negarReserva(idReserva, token, negarReservaRequest));
     }
 
+    @PutMapping("/encerrar-reserva/{idReserva}")
+    @PreAuthorize("hasRole('ADM')")
+    public ResponseEntity<Object> encerrarReserva(@PathVariable Long idReserva,
+                                               @RequestHeader("Authorization") String token,
+                                               @RequestBody Object encerrarReservaRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(msLocacoesClient.encerrarReserva(idReserva, token, encerrarReservaRequest));
+    }
+
     @GetMapping("/relatorio-reservas")
     @PreAuthorize("hasRole('ADM')")
     public ResponseEntity<List<Object>> buscarRelatorioDeReservas() {
