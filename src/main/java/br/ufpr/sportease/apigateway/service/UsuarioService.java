@@ -5,11 +5,15 @@ import br.ufpr.sportease.apigateway.exceptions.EntityNotFoundException;
 import br.ufpr.sportease.apigateway.model.dto.usuario.AlterarSenhaRequest;
 import br.ufpr.sportease.apigateway.model.dto.usuario.AlterarSenhaResponse;
 import br.ufpr.sportease.apigateway.model.dto.usuario.AtivarContaResponse;
+import br.ufpr.sportease.apigateway.model.dto.usuario.StatusBloqueioContaResponse;
 import br.ufpr.sportease.apigateway.model.entity.Usuario;
 import br.ufpr.sportease.apigateway.repository.UsuarioRepository;
 import br.ufpr.sportease.apigateway.security.TokenService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UsuarioService {
@@ -77,4 +81,22 @@ public class UsuarioService {
 
     }
 
+    public Void bloquearDesbloquearConta(Long idUsuario) {
+        var usuario = repository.findById(idUsuario).orElseThrow(() -> new EntityNotFoundException(USUARIO_NAO_ENCONTRADO));
+        usuario.setBloqueada(!usuario.getBloqueada());
+        repository.save(usuario);
+
+        //todo mandar email pro usuário informando que a conta foi bloqueada ou desbloqueada
+
+        return null;
+    }
+
+    public List<StatusBloqueioContaResponse> buscarStatusBloqueioContas() {
+        var listaUsuarios = repository.findAll();
+        var listaStatusBloqueioContaResponse = new ArrayList<StatusBloqueioContaResponse>();
+
+        listaUsuarios.forEach(usuario -> listaStatusBloqueioContaResponse.add(new StatusBloqueioContaResponse(usuario)));
+
+        return listaStatusBloqueioContaResponse;
+    }
 }

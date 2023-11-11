@@ -47,6 +47,10 @@ public class LoginController {
             throw new BadCredentialsException("Usuário inexistente ou senha inválida");
         }
 
+        if(Boolean.TRUE.equals(usuario.getBloqueada())) {
+            throw new BussinessException("Essa conta está bloqueada");
+        }
+
         if(Boolean.FALSE.equals(usuario.getAtiva())) {
             throw new BussinessException("Essa conta não está ativa");
         }

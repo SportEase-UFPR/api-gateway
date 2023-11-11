@@ -34,11 +34,15 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private Boolean ativa;
 
+    @Column(nullable = false)
+    private Boolean bloqueada;
+
     public Usuario(String login, String senha, NivelAcesso nivelAcesso) {
         this.login = login;
         this.senha = new BCryptPasswordEncoder().encode(senha);
         this.nivelAcesso = nivelAcesso;
         this.ativa = false;
+        this.bloqueada = false;
     }
 
 

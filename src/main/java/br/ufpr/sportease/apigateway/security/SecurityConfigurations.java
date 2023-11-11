@@ -43,6 +43,8 @@ public class SecurityConfigurations {
                 .requestMatchers(HttpMethod.PUT, "/usuarios/alterar-senha").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/usuarios/*").permitAll() //o bloqueio desse endpoint ocorre no fluxo principal do código
 
+                .requestMatchers(HttpMethod.GET, "/usuarios/buscar-status-bloqueio-contas").permitAll()
+
                 .requestMatchers(HttpMethod.POST, "/clientes").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/clientes/alterar-email").permitAll()
                 .requestMatchers(HttpMethod.GET, "/clientes/buscar-id-por-id-usuario/*").permitAll()
