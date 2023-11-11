@@ -2,10 +2,7 @@ package br.ufpr.sportease.apigateway.service;
 
 import br.ufpr.sportease.apigateway.exceptions.BussinessException;
 import br.ufpr.sportease.apigateway.exceptions.EntityNotFoundException;
-import br.ufpr.sportease.apigateway.model.dto.usuario.AlterarSenhaRequest;
-import br.ufpr.sportease.apigateway.model.dto.usuario.AlterarSenhaResponse;
-import br.ufpr.sportease.apigateway.model.dto.usuario.AtivarContaResponse;
-import br.ufpr.sportease.apigateway.model.dto.usuario.StatusBloqueioContaResponse;
+import br.ufpr.sportease.apigateway.model.dto.usuario.*;
 import br.ufpr.sportease.apigateway.model.entity.Usuario;
 import br.ufpr.sportease.apigateway.repository.UsuarioRepository;
 import br.ufpr.sportease.apigateway.security.TokenService;
@@ -81,12 +78,24 @@ public class UsuarioService {
 
     }
 
-    public Void bloquearDesbloquearConta(Long idUsuario) {
+    public Void bloquearConta(Long idUsuario, BloquearContaRequest request) {
         var usuario = repository.findById(idUsuario).orElseThrow(() -> new EntityNotFoundException(USUARIO_NAO_ENCONTRADO));
-        usuario.setBloqueada(!usuario.getBloqueada());
+        usuario.setBloqueada(true);
+        usuario.setMotivoBloqueio(request.getJustificativa());
         repository.save(usuario);
 
-        //todo mandar email pro usuário informando que a conta foi bloqueada ou desbloqueada
+        //todo mandar email pro usuário informando que a conta foi bloqueada
+
+        return null;
+    }
+
+    public Void desbloquearConta(Long idUsuario) {
+        var usuario = repository.findById(idUsuario).orElseThrow(() -> new EntityNotFoundException(USUARIO_NAO_ENCONTRADO));
+        usuario.setBloqueada(false);
+        usuario.setMotivoBloqueio(null  );
+        repository.save(usuario);
+
+        //todo mandar email pro usuário informando que a conta foi desbloqueada
 
         return null;
     }

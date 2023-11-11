@@ -47,9 +47,14 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.alterarSenha(alterarSenhaRequest));
     }
 
-    @PutMapping("/bloquear-desbloquear-conta/{idUsuario}")
-    public ResponseEntity<Void> bloquearDesbloquearConta(@PathVariable Long idUsuario) {
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.bloquearDesbloquearConta(idUsuario));
+    @PutMapping("/bloquear-conta/{idUsuario}")
+    public ResponseEntity<Void> bloquearConta(@PathVariable Long idUsuario, @RequestBody @Valid BloquearContaRequest request) {
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.bloquearConta(idUsuario, request));
+    }
+
+    @PutMapping("/desbloquear-conta/{idUsuario}")
+    public ResponseEntity<Void> desbloquearConta(@PathVariable Long idUsuario) {
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.desbloquearConta(idUsuario));
     }
 
     @GetMapping("/buscar-status-bloqueio-contas")

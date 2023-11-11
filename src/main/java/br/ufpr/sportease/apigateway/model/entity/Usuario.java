@@ -37,6 +37,8 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private Boolean bloqueada;
 
+    private String motivoBloqueio;
+
     public Usuario(String login, String senha, NivelAcesso nivelAcesso) {
         this.login = login;
         this.senha = new BCryptPasswordEncoder().encode(senha);
