@@ -76,4 +76,10 @@ public class ClienteController {
     public ResponseEntity<Object> enviarEmailTodosClientes(@RequestBody Object request) {
         return ResponseEntity.status(HttpStatus.OK).body(msCadastrosClient.enviarEmailTodosClientes(request));
     }
+
+    @GetMapping("/detalhes")
+    @PreAuthorize("hasRole('ADM')")
+    public ResponseEntity<List<Object>> buscarClienteDetalhadoPorId() {
+        return ResponseEntity.status(HttpStatus.OK).body(msCadastrosClient.buscarClienteDetalhadoPorId());
+    }
 }

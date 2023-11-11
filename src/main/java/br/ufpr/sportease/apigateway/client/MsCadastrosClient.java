@@ -227,4 +227,11 @@ public class MsCadastrosClient {
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
+
+    public List<Object> buscarClienteDetalhadoPorId() {
+        String url = urlMsCadastrosClientes + "/detalhes";
+        HttpHeaders headers = gerarCabecalho();
+        return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
+
+    }
 }
