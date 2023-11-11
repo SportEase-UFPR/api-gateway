@@ -92,7 +92,7 @@ public class UsuarioService {
     public Void desbloquearConta(Long idUsuario) {
         var usuario = repository.findById(idUsuario).orElseThrow(() -> new EntityNotFoundException(USUARIO_NAO_ENCONTRADO));
         usuario.setBloqueada(false);
-        usuario.setMotivoBloqueio(null  );
+        usuario.setMotivoBloqueio(null);
         repository.save(usuario);
 
         //todo mandar email pro usuário informando que a conta foi desbloqueada

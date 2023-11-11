@@ -69,7 +69,11 @@ public class ClienteService {
         }
 
         //alterar Cliente
-        if(StringUtils.isNotBlank(request.getNome()) || StringUtils.isNotBlank(request.getEmail())) {
+        if(StringUtils.isNotBlank(request.getNome())
+           || StringUtils.isNotBlank(request.getEmail())
+           || request.getAlunoUFPR() != null
+           || request.getGrr() != null
+        ) {
             return msCadastrosClient.atualizarDadosCliente(token, new ClienteAlteracaoRequestMsCadastro(request));
         }
 

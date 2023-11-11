@@ -15,4 +15,6 @@ public class ClienteAlteracaoRequest {
     @Email(message = "O email deve ser válido")
     private String email;
     private String senha;
+    private Boolean alunoUFPR;
+    private String grr;
 }
