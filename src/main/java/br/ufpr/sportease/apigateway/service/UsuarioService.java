@@ -26,14 +26,13 @@ public class UsuarioService {
 
     public void excluirUsuarioPorId(Long idUsuario, String tokenApi) {
         //validar token
-        tokenService.validarTokenApiMsCadastro(tokenApi);
+        tokenService.validarTokenMs(tokenApi);
         repository.deleteById(idUsuario);
     }
 
     public AtivarContaResponse ativarConta(String tokenAtivacaoConta) {
         //recuperar e validar o id do usuário do token
-        String idUsuario = tokenService.validateTokenAndGetSubject(tokenAtivacaoConta);
-
+        String idUsuario = tokenService.validarTokenUserERecuperarSubject(tokenAtivacaoConta);
 
         //buscar usuário pelo id
         Usuario usuario = repository.findById(Long.parseLong(idUsuario))

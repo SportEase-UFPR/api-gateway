@@ -15,8 +15,8 @@ import java.util.List;
 @Service
 public class MsComunicacoesClient {
 
-    @Value("${url.ms.comunicacoes.notificacoes}")
-    private String urlMsComunicacoesNotificacoes;
+    @Value("${url.ms.comunicacoes}")
+    private String urlMsComunicacoes;
 
     public static final String AUTHORIZATION_USER = "AuthorizationUser";
 
@@ -36,14 +36,14 @@ public class MsComunicacoesClient {
     }
 
     public List<Object> buscarNotificacoesCliente(String token) {
-        String url = urlMsComunicacoesNotificacoes;
+        String url = urlMsComunicacoes + "/notificacoes";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
     }
 
     public Object marcarNotificacoesComoLida(String token) {
-        String url = urlMsComunicacoesNotificacoes + "/marcar-como-lida";
+        String url = urlMsComunicacoes + "/notificacoes/marcar-como-lida";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(headers), Object.class).getBody();

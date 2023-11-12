@@ -12,20 +12,8 @@ import java.util.List;
 @Service
 public class MsCadastrosClient {
 
-    @Value("${url.ms.cadastros.adm}")
-    private String urlMsCadastrosAdm;
-
-    @Value("${url.ms.cadastros.clientes}")
-    private String urlMsCadastrosClientes;
-
-    @Value("${url.ms.cadastros.espacos_esportivos}")
-    private String urlMsCadastrosEE;
-
-    @Value("${url.ms.cadastros.esportes}")
-    private String urlMsCadastrosEsportes;
-
-    @Value("${url.ms.cadastros.usuarios}")
-    private String urlMsCadastrosUsuarios;
+    @Value("${url.ms.cadastros}")
+    private String urlMsCadastros;
 
     public static final String AUTHORIZATION_USER = "AuthorizationUser";
 
@@ -45,20 +33,20 @@ public class MsCadastrosClient {
     }
 
     public Object alterarEmailSolicitacao(Object request, String token) {
-        String url = urlMsCadastrosAdm + "/alterar-email-solicitacao";
+        String url = urlMsCadastros + "/adm/alterar-email-solicitacao";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public Object alterarEmailAdm(Object request) {
-        String url = urlMsCadastrosAdm + "/alterar-email";
+        String url = urlMsCadastros + "/adm/alterar-email";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public Object alterarNome(Object request, String token) {
-        String url = urlMsCadastrosAdm + "/alterar-nome";
+        String url = urlMsCadastros + "/adm/alterar-nome";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url,HttpMethod.PUT, new HttpEntity<>(request, headers), Object.class).getBody();
@@ -66,26 +54,26 @@ public class MsCadastrosClient {
     }
 
     public Object criarAdm(Object request) {
-        String url = urlMsCadastrosAdm;
+        String url = urlMsCadastros + "/adm";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public List<Object> listarAdms() {
-        String url = urlMsCadastrosAdm;
+        String url = urlMsCadastros + "/adm";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
 
     }
 
     public Object buscarAdmPorId(Long idAdm) {
-        String url = urlMsCadastrosAdm + "/" + idAdm;
+        String url = urlMsCadastros + "/adm/" + idAdm;
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), Object.class).getBody();
     }
 
     public Object buscarAdmPorIdUsuario(String token) {
-        String url = urlMsCadastrosAdm + "/adm-logado";
+        String url = urlMsCadastros + "/adm/adm-logado";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), Object.class).getBody();
@@ -93,145 +81,144 @@ public class MsCadastrosClient {
     }
 
     public Object excluirAdmPorId(Long idAdm) {
-        String url = urlMsCadastrosAdm + "/" + idAdm;
+        String url = urlMsCadastros + "/adm/" + idAdm;
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.DELETE, new HttpEntity<>(headers), Object.class).getBody();
     }
 
     public Object editarDadosAdm(String token, Object request) {
-        String url = urlMsCadastrosAdm;
+        String url = urlMsCadastros + "/adm";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public Object buscarIdAdmPorIdUsuario(Long idUsuario) {
-        String url = urlMsCadastrosAdm + "/buscar-id-por-id-usuario/" + idUsuario;
+        String url = urlMsCadastros + "/adm/buscar-id-por-id-usuario/" + idUsuario;
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), Object.class).getBody();
     }
 
     public Object criarCliente(Object request) {
-        String url = urlMsCadastrosClientes;
+        String url = urlMsCadastros + "/clientes";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public Object buscarClientePorId(Long clienteId) {
-        String url = urlMsCadastrosClientes + "/" + clienteId;
+        String url = urlMsCadastros + "/clientes/" + clienteId;
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), Object.class).getBody();
     }
 
     public Object buscarDadosClienteLogado(String token) {
-        String url = urlMsCadastrosClientes + "/cliente-logado";
+        String url = urlMsCadastros + "/clientes/cliente-logado";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), Object.class).getBody();
     }
 
     public Object atualizarDadosCliente(String token, Object request) {
-        String url = urlMsCadastrosClientes;
+        String url = urlMsCadastros + "/clientes";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public Object alterarEmailCliente(Object request) {
-        String url = urlMsCadastrosClientes + "/alterar-email";
+        String url = urlMsCadastros + "clientes/alterar-email";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public Object buscarIdClientePorIdUsuario(Long idUsuario) {
-        String url = urlMsCadastrosClientes + "/buscar-id-por-id-usuario/" + idUsuario;
+        String url = urlMsCadastros + "clientes/buscar-id-por-id-usuario/" + idUsuario;
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), Object.class).getBody();
     }
 
+
+    public List<Object> buscarEmailsClientes() {
+        String url = urlMsCadastros + "/clientes/buscar-emails-clientes";
+        HttpHeaders headers = gerarCabecalho();
+        return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
+    }
+
+    public List<Object> buscarClienteDetalhadoPorId() {
+        String url = urlMsCadastros + "/clientes/detalhes";
+        HttpHeaders headers = gerarCabecalho();
+        return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
+    }
+
     public Object criarEspacoEsportivo(Object request) {
-        String url = urlMsCadastrosEE;
+        String url = urlMsCadastros + "/espacos-esportivos";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public Object listarEspacosEsportivos() {
-        String url = urlMsCadastrosEE;
+        String url = urlMsCadastros + "/espacos-esportivos";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), Object.class).getBody();
     }
 
     public Object listarEspacosEsportivosDisponiveis() {
-        String url = urlMsCadastrosEE + "/disponiveis";
+        String url = urlMsCadastros + "/espacos-esportivos/disponiveis";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), Object.class).getBody();
     }
 
     public Object buscarEspacoEsportivoPorId(Long espEsportivoId) {
-        String url = urlMsCadastrosEE + "/" + espEsportivoId;
+        String url = urlMsCadastros + "/espacos-esportivos/" + espEsportivoId;
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), Object.class).getBody();
     }
 
     public Object excluirEspacoEsportivoPorId(Long espEsportivoId) {
-        String url = urlMsCadastrosEE + "/" + espEsportivoId;
+        String url = urlMsCadastros + "/espacos-esportivos/" + espEsportivoId;
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.DELETE, new HttpEntity<>(headers), Object.class).getBody();
     }
 
     public Object editarEspacoEsportivo(Long espEsportivoId, Object request) {
-        String url = urlMsCadastrosEE + "/" + espEsportivoId;
+        String url = urlMsCadastros + "/espacos-esportivos/" + espEsportivoId;
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public Object criarEsporte(Object request) {
-        String url = urlMsCadastrosEsportes;
+        String url = urlMsCadastros + "/esportes";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public Object listarEsportes() {
-        String url = urlMsCadastrosEsportes;
+        String url = urlMsCadastros + "/esportes";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), Object.class).getBody();
     }
 
     public Object excluirEsporte(Long id) {
-        String url = urlMsCadastrosEsportes + "/" + id;
+        String url = urlMsCadastros + "/esportes/" + id;
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.DELETE, new HttpEntity<>(headers), Object.class).getBody();
     }
 
     public Object enviarEmailRecuperacaoSenha(Object request) {
-        String url = urlMsCadastrosUsuarios + "/email-recuperacao-senha";
+        String url = urlMsCadastros + "/usuarios/email-recuperacao-senha";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
-    public List<Object> buscarEmailsClientes() {
-        String url = urlMsCadastrosClientes + "/buscar-emails-clientes";
-        HttpHeaders headers = gerarCabecalho();
-        return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
-
-    }
-
     public Object enviarEmailClientes(Object request) {
-        String url = urlMsCadastrosClientes + "/enviar-email";
+        String url = urlMsCadastros + "/clientes/enviar-email";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public Object enviarEmailTodosClientes(Object request) {
-        String url = urlMsCadastrosClientes + "/enviar-email-todos";
+        String url = urlMsCadastros + "/clientes/enviar-email-todos";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
-    }
-
-    public List<Object> buscarClienteDetalhadoPorId() {
-        String url = urlMsCadastrosClientes + "/detalhes";
-        HttpHeaders headers = gerarCabecalho();
-        return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
-
     }
 }

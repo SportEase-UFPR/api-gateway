@@ -72,7 +72,7 @@ public class LoginController {
         Object idPessoa = (admId != null) ? admId : clienteId;
 
         assert idPessoa != null;
-        var tokenJWT = tokenService.gerarTokenPadrao(usuario, Long.parseLong(idPessoa.toString()));
+        var tokenJWT = tokenService.gerarTokenUsuario(usuario, Long.parseLong(idPessoa.toString()));
 
 
         return ResponseEntity.ok(new LoginResponse(tokenJWT));

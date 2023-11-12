@@ -59,7 +59,7 @@ public class UsuarioController {
 
     @GetMapping("/buscar-status-bloqueio-contas")
     public ResponseEntity<List<StatusBloqueioContaResponse>> buscarStatusBloqueioContas(@RequestHeader("AuthorizationApi") String token) {
-        tokenService.validarTokenApiMsCadastro(token);
+        tokenService.validarTokenMs(token);
 
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.buscarStatusBloqueioContas());
     }
