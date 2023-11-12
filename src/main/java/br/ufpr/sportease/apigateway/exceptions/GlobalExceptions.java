@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.time.LocalDateTime;
+import static br.ufpr.sportease.apigateway.utils.HorarioBrasil.buscarHoraAtual;
 
-import static constants.HorarioBrasil.HORA_ATUAL;
 
 @ControllerAdvice
 public class GlobalExceptions {
@@ -21,7 +20,7 @@ public class GlobalExceptions {
             HttpClientErrorException e, HttpServletRequest request) {
 
         StandardError se = new StandardError(
-                HORA_ATUAL,
+                buscarHoraAtual(),
                 e.getStatusCode().value() ,
                 HttpStatus.valueOf(e.getStatusCode().value()).getReasonPhrase(),
                 //e.getMessage(),
@@ -36,7 +35,7 @@ public class GlobalExceptions {
             TokenInvalidoException e, HttpServletRequest request) {
 
         StandardError se = new StandardError(
-                HORA_ATUAL,
+                buscarHoraAtual(),
                 HttpStatus.UNAUTHORIZED.value(),
                 HttpStatus.UNAUTHORIZED.getReasonPhrase(),
                 e.getMessage(),
@@ -50,7 +49,7 @@ public class GlobalExceptions {
             ConflictException e, HttpServletRequest request) {
 
         StandardError se = new StandardError(
-                HORA_ATUAL, 409, HttpStatus.CONFLICT.getReasonPhrase(), e.getMessage(), request.getRequestURI());
+                buscarHoraAtual(), 409, HttpStatus.CONFLICT.getReasonPhrase(), e.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(se);
     }
@@ -60,7 +59,7 @@ public class GlobalExceptions {
             EntityNotFoundException e, HttpServletRequest request) {
 
         StandardError se = new StandardError(
-                HORA_ATUAL, 404, HttpStatus.NOT_FOUND.getReasonPhrase(), e.getMessage(), request.getRequestURI());
+                buscarHoraAtual(), 404, HttpStatus.NOT_FOUND.getReasonPhrase(), e.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(se);
     }
@@ -70,7 +69,7 @@ public class GlobalExceptions {
             BussinessException e, HttpServletRequest request) {
 
         StandardError se = new StandardError(
-                HORA_ATUAL, 412, HttpStatus.PRECONDITION_FAILED.getReasonPhrase(), e.getMessage(), request.getRequestURI());
+                buscarHoraAtual(), 412, HttpStatus.PRECONDITION_FAILED.getReasonPhrase(), e.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(se);
     }
@@ -80,7 +79,7 @@ public class GlobalExceptions {
             BadCredentialsException e, HttpServletRequest request) {
 
         StandardError se = new StandardError(
-                HORA_ATUAL, 401, HttpStatus.UNAUTHORIZED.getReasonPhrase(), e.getMessage(), request.getRequestURI());
+                buscarHoraAtual(), 401, HttpStatus.UNAUTHORIZED.getReasonPhrase(), e.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(se);
     }
