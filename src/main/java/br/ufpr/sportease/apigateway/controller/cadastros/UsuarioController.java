@@ -28,7 +28,8 @@ public class UsuarioController {
 
     @DeleteMapping("/{idUsuario}")
     public ResponseEntity<Void> excluirUsuarioPorId(@PathVariable Long idUsuario, @RequestHeader("AuthorizationApi") String tokenApi) {
-        usuarioService.excluirUsuarioPorId(idUsuario, tokenApi);
+        tokenService.validarTokenMs(tokenApi);
+        usuarioService.excluirUsuarioPorId(idUsuario);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

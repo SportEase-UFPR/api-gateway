@@ -1,5 +1,6 @@
 package br.ufpr.sportease.apigateway.client;
 
+import br.ufpr.sportease.apigateway.model.dto.cliente.ClienteBuscaResponse;
 import br.ufpr.sportease.apigateway.security.TokenService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -109,6 +110,13 @@ public class MsCadastrosClient {
         String url = urlMsCadastros + "/clientes/" + clienteId;
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), Object.class).getBody();
+    }
+
+    public ClienteBuscaResponse buscarClientePorId2(Long clienteId) {
+        String url = urlMsCadastros + "/clientes/" + clienteId;
+        HttpHeaders headers = gerarCabecalho();
+        var response =  restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), Object.class).getBody();
+        return new ClienteBuscaResponse(response);
     }
 
     public Object buscarDadosClienteLogado(String token) {
@@ -221,4 +229,6 @@ public class MsCadastrosClient {
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
+
+
 }

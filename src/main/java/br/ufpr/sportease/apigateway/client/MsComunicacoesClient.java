@@ -1,5 +1,6 @@
 package br.ufpr.sportease.apigateway.client;
 
+import br.ufpr.sportease.apigateway.model.dto.email.CriacaoEmailRequest;
 import br.ufpr.sportease.apigateway.security.TokenService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -47,6 +48,12 @@ public class MsComunicacoesClient {
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(headers), Object.class).getBody();
+    }
+
+    public void enviarEmail(CriacaoEmailRequest request) {
+        String url = urlMsComunicacoes + "/email";
+        HttpHeaders headers = gerarCabecalho();
+        restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class);
     }
 
 }
