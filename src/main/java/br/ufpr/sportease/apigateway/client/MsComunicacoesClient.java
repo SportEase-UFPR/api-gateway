@@ -50,10 +50,22 @@ public class MsComunicacoesClient {
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(headers), Object.class).getBody();
     }
 
-    public void enviarEmail(CriacaoEmailRequest request) {
-        String url = urlMsComunicacoes + "/email";
+    public void enviarEmailViaApiGateway(CriacaoEmailRequest request) {
+        String url = urlMsComunicacoes + "/email/via-api-gateway";
         HttpHeaders headers = gerarCabecalho();
         restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class);
+    }
+
+    public Object enviarEmailClientes(Object request) {
+        String url = urlMsComunicacoes + "/email";
+        HttpHeaders headers = gerarCabecalho();
+        return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
+    }
+
+    public Object enviarEmailTodosClientes(Object request) {
+        String url = urlMsComunicacoes + "/email/todos";
+        HttpHeaders headers = gerarCabecalho();
+        return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
 }

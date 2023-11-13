@@ -134,13 +134,13 @@ public class MsCadastrosClient {
     }
 
     public Object alterarEmailCliente(Object request) {
-        String url = urlMsCadastros + "clientes/alterar-email";
+        String url = urlMsCadastros + "/clientes/alterar-email";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public Object buscarIdClientePorIdUsuario(Long idUsuario) {
-        String url = urlMsCadastros + "clientes/buscar-id-por-id-usuario/" + idUsuario;
+        String url = urlMsCadastros + "/clientes/buscar-id-por-id-usuario/" + idUsuario;
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), Object.class).getBody();
     }
@@ -217,18 +217,5 @@ public class MsCadastrosClient {
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
-
-    public Object enviarEmailClientes(Object request) {
-        String url = urlMsCadastros + "/clientes/enviar-email";
-        HttpHeaders headers = gerarCabecalho();
-        return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
-    }
-
-    public Object enviarEmailTodosClientes(Object request) {
-        String url = urlMsCadastros + "/clientes/enviar-email-todos";
-        HttpHeaders headers = gerarCabecalho();
-        return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
-    }
-
 
 }

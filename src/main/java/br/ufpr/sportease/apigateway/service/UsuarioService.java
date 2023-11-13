@@ -89,10 +89,10 @@ public class UsuarioService {
         repository.save(usuario);
 
         //Enviar email pro usuário informando que a conta foi bloqueada
-        var idCliente = (Long) msCadastrosClient.buscarIdClientePorIdUsuario(idUsuario);
+        var idCliente = ((Integer) msCadastrosClient.buscarIdClientePorIdUsuario(idUsuario)).longValue();
         var cliente = msCadastrosClient.buscarClientePorId2(idCliente);
 
-        msComunicacoesClient.enviarEmail(TemplateEmails.emailBloqueioConta(cliente, usuario.getMotivoBloqueio()));
+        msComunicacoesClient.enviarEmailViaApiGateway(TemplateEmails.emailBloqueioConta(cliente, usuario.getMotivoBloqueio()));
 
         return null;
     }
@@ -104,10 +104,10 @@ public class UsuarioService {
         repository.save(usuario);
 
         //Enviar email pro usuário informando que a conta foi desbloqueada
-        var idCliente = (Long) msCadastrosClient.buscarIdClientePorIdUsuario(idUsuario);
+        var idCliente = ((Integer) msCadastrosClient.buscarIdClientePorIdUsuario(idUsuario)).longValue();
         var cliente = msCadastrosClient.buscarClientePorId2(idCliente);
 
-        msComunicacoesClient.enviarEmail(TemplateEmails.emailDesbloqueioConta(cliente));
+        msComunicacoesClient.enviarEmailViaApiGateway(TemplateEmails.emailDesbloqueioConta(cliente));
 
         return null;
     }
