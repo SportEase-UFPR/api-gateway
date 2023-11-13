@@ -36,28 +36,28 @@ public class MsLocacoesClient {
     }
 
     public Object solicitarLocacao(Object request, String token) {
-        String url = urlMsLocacoes + "/solicitar-locacao";
+        String url = urlMsLocacoes + "/locacoes/solicitar-locacao";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public Object verificarHorariosDisponiveisParaLocacao(Object request) {
-        String url = urlMsLocacoes + "/horarios-disponiveis";
+        String url = urlMsLocacoes + "/locacoes/horarios-disponiveis";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
 
     public List<Object> listarReservasEmAndamento(String token) {
-        String url = urlMsLocacoes + "/listar-reservas-em-andamento";
+        String url = urlMsLocacoes + "/locacoes/listar-reservas-em-andamento";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
     }
 
     public Object cancelarReserva(String token, Long idReserva) {
-        String url = urlMsLocacoes + "/cancelar-reserva/" + idReserva;
+        String url = urlMsLocacoes + "/locacoes/cancelar-reserva/" + idReserva;
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(headers), Object.class).getBody();
@@ -65,60 +65,60 @@ public class MsLocacoesClient {
     }
 
     public Object confirmarUsoReserva(String token, Long idReserva) {
-        String url = urlMsLocacoes + "/confirmar-uso/" + idReserva;
+        String url = urlMsLocacoes + "/locacoes/confirmar-uso/" + idReserva;
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(headers), Object.class).getBody();
     }
 
     public List<Object> listarHistoricoReservas(String token) {
-        String url = urlMsLocacoes + "/listar-historico-reservas";
+        String url = urlMsLocacoes + "/locacoes/listar-historico-reservas";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
     }
 
     public List<Object> listarReservasSolicitadas() {
-        String url = urlMsLocacoes + "/listar-reservas-solicitadas";
+        String url = urlMsLocacoes + "/locacoes/listar-reservas-solicitadas";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
     }
 
     public Object aprovarReserva(Long idReserva, String token) {
-        String url = urlMsLocacoes + "/aprovar-reserva/" + idReserva;
+        String url = urlMsLocacoes + "/locacoes/aprovar-reserva/" + idReserva;
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(headers), Object.class).getBody();
     }
 
     public Object negarReserva(Long idReserva, String token, Object request) {
-        String url = urlMsLocacoes + "/negar-reserva/" + idReserva;
+        String url = urlMsLocacoes + "/locacoes/negar-reserva/" + idReserva;
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public List<Object> buscarRelatorioDeReservas() {
-        String url = urlMsLocacoes + "/relatorio-reservas";
+        String url = urlMsLocacoes + "/locacoes/relatorio-reservas";
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
     }
 
     public Object avaliarReserva(Long idReserva, String token, Object request) {
-        String url = urlMsLocacoes + "/avaliar-reserva/" + idReserva;
+        String url = urlMsLocacoes + "/locacoes/avaliar-reserva/" + idReserva;
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
     public List<Object> listarComentariosPorEspacoEsportivo(Long idEspacoEsportivo) {
-        String url = urlMsLocacoes + "/comentarios/" + idEspacoEsportivo;
+        String url = urlMsLocacoes + "/locacoes/comentarios/" + idEspacoEsportivo;
         HttpHeaders headers = gerarCabecalho();
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
     }
 
     public Object encerrarReserva(Long idReserva, String token, Object request) {
-        String url = urlMsLocacoes + "/encerrar-reserva/" + idReserva;
+        String url = urlMsLocacoes + "/locacoes/encerrar-reserva/" + idReserva;
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(request, headers), Object.class).getBody();

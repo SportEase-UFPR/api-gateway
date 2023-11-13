@@ -17,29 +17,29 @@ import java.time.ZoneOffset;
 @Service
 public class TokenService {
 
-    @Value("${api.security.token.user.secret}")
+    @Value("${user.secret}")
     private String userSecret;
 
-    @Value("${api.security.token.apigateway.secret}")
+    @Value("${api.gateway.secret}")
     private String apiGatewaySecret;
 
-    @Value("${api.security.token.mscadastro.secret}")
-    private String msCadastroSecret;
+    @Value("${ms.secret}")
+    private String msSecret;
+
+    @Value("${user.issuer}")
+    private String userIssuer;
 
     @Value("${api.gateway.issuer}")
     private String apiGatewayIssuer;
 
-    @Value("${api.user.issuer}")
-    private String apiUserIssuer;
-
-    @Value("${api.mscadastro.issuer}")
-    private String msCadastroIssuer;
+    @Value("${ms.issuer}")
+    private String msIssuer;
 
 
-    public String gerarTokenPadrao(Usuario usuario, Long idPessoa) {
+    public String gerarTokenUsuario(Usuario usuario, Long idPessoa) {
         var algoritmo = Algorithm.HMAC256(userSecret);
         return JWT.create()
-                .withIssuer(apiUserIssuer) //quem gerou o token
+                .withIssuer(userIssuer) //quem gerou o token
                 .withSubject(usuario.getId().toString()) //adiciona o id do usuário ao token
                 .withClaim("userProfile", usuario.getNivelAcesso().toString()) //aqui dá pra adicionar outros atributos se necessário
                 .withClaim("idPessoa", idPessoa.toString()) //adiciona o id do cliente ou adm ao token
@@ -54,16 +54,15 @@ public class TokenService {
                 .withSubject(apiGatewayIssuer)
                 .withExpiresAt(dataExpiracao(20)) //data da expiração
                 .sign(algoritmo); //assinatura
-
     }
 
     //validar o token e recupera o subject (no nosso caso, o id do usuário)
-    public String validateTokenAndGetSubject(String tokenJWT) {
+    public String validarTokenUserERecuperarSubject(String tokenJWT) {
         var tokenFormatado = removerPrefixoToken(tokenJWT);
         try {
             var algoritmo = Algorithm.HMAC256(userSecret);
             return JWT.require(algoritmo)//verifica se a senha está correta
-                    .withIssuer(apiUserIssuer) //verifica se quem gerou o token foi a própria API SportEase
+                    .withIssuer(userIssuer) //verifica se quem gerou o token foi a própria API SportEase
                     .build()
                     .verify(tokenFormatado) //validação
                     .getSubject(); //recupera o subject do token
@@ -73,13 +72,13 @@ public class TokenService {
         }
     }
 
-    //valida se o token foi gerado pela api msCadatro
-    public void validarTokenApiMsCadastro(String tokenApi) {
+    //valida se o token foi gerado por um ms
+    public void validarTokenMs(String tokenApi) {
         var tokenFormatado = removerPrefixoToken(tokenApi);
         try {
-            var algoritmo = Algorithm.HMAC256(msCadastroSecret);
+            var algoritmo = Algorithm.HMAC256(msSecret);
             JWT.require(algoritmo)
-                    .withIssuer(msCadastroIssuer)
+                    .withIssuer(msIssuer)
                     .build()
                     .verify(tokenFormatado);
         } catch (JWTVerificationException ex) {
@@ -105,6 +104,5 @@ public class TokenService {
     public String removerPrefixoToken(String token) {
         return token.replace("Bearer ", "");
     }
-
 
 }

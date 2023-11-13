@@ -1,5 +1,6 @@
 package br.ufpr.sportease.apigateway.client;
 
+import br.ufpr.sportease.apigateway.model.dto.email.CriacaoEmailRequest;
 import br.ufpr.sportease.apigateway.security.TokenService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -15,8 +16,8 @@ import java.util.List;
 @Service
 public class MsComunicacoesClient {
 
-    @Value("${url.ms.comunicacoes.notificacoes}")
-    private String urlMsComunicacoesNotificacoes;
+    @Value("${url.ms.comunicacoes}")
+    private String urlMsComunicacoes;
 
     public static final String AUTHORIZATION_USER = "AuthorizationUser";
 
@@ -36,17 +37,35 @@ public class MsComunicacoesClient {
     }
 
     public List<Object> buscarNotificacoesCliente(String token) {
-        String url = urlMsComunicacoesNotificacoes;
+        String url = urlMsComunicacoes + "/notificacoes";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<List<Object>>() {}).getBody();
     }
 
     public Object marcarNotificacoesComoLida(String token) {
-        String url = urlMsComunicacoesNotificacoes + "/marcar-como-lida";
+        String url = urlMsComunicacoes + "/notificacoes/marcar-como-lida";
         HttpHeaders headers = gerarCabecalho();
         headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(headers), Object.class).getBody();
+    }
+
+    public void enviarEmailViaApiGateway(CriacaoEmailRequest request) {
+        String url = urlMsComunicacoes + "/email/via-api-gateway";
+        HttpHeaders headers = gerarCabecalho();
+        restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class);
+    }
+
+    public Object enviarEmailClientes(Object request) {
+        String url = urlMsComunicacoes + "/email";
+        HttpHeaders headers = gerarCabecalho();
+        return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
+    }
+
+    public Object enviarEmailTodosClientes(Object request) {
+        String url = urlMsComunicacoes + "/email/todos";
+        HttpHeaders headers = gerarCabecalho();
+        return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
 }

@@ -1,5 +1,8 @@
 package br.ufpr.sportease.apigateway.service;
 
+import br.ufpr.sportease.apigateway.client.MsCadastrosClient;
+import br.ufpr.sportease.apigateway.client.MsComunicacoesClient;
+import br.ufpr.sportease.apigateway.emails.TemplateEmails;
 import br.ufpr.sportease.apigateway.exceptions.BussinessException;
 import br.ufpr.sportease.apigateway.exceptions.EntityNotFoundException;
 import br.ufpr.sportease.apigateway.model.dto.usuario.*;
@@ -18,22 +21,23 @@ public class UsuarioService {
     public static final String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado";
     private final TokenService tokenService;
     private final UsuarioRepository repository;
+    private final MsCadastrosClient msCadastrosClient;
+    private final MsComunicacoesClient msComunicacoesClient;
 
-    public UsuarioService(TokenService tokenService, UsuarioRepository repository) {
+    public UsuarioService(TokenService tokenService, UsuarioRepository repository, MsCadastrosClient msCadastrosClient, MsComunicacoesClient msComunicacoesClient) {
         this.tokenService = tokenService;
         this.repository = repository;
+        this.msCadastrosClient = msCadastrosClient;
+        this.msComunicacoesClient = msComunicacoesClient;
     }
 
-    public void excluirUsuarioPorId(Long idUsuario, String tokenApi) {
-        //validar token
-        tokenService.validarTokenApiMsCadastro(tokenApi);
+    public void excluirUsuarioPorId(Long idUsuario) {
         repository.deleteById(idUsuario);
     }
 
     public AtivarContaResponse ativarConta(String tokenAtivacaoConta) {
         //recuperar e validar o id do usuário do token
-        String idUsuario = tokenService.validateTokenAndGetSubject(tokenAtivacaoConta);
-
+        String idUsuario = tokenService.validarTokenUserERecuperarSubject(tokenAtivacaoConta);
 
         //buscar usuário pelo id
         Usuario usuario = repository.findById(Long.parseLong(idUsuario))
@@ -84,7 +88,11 @@ public class UsuarioService {
         usuario.setMotivoBloqueio(request.getJustificativa());
         repository.save(usuario);
 
-        //todo mandar email pro usuário informando que a conta foi bloqueada
+        //Enviar email pro usuário informando que a conta foi bloqueada
+        var idCliente = ((Integer) msCadastrosClient.buscarIdClientePorIdUsuario(idUsuario)).longValue();
+        var cliente = msCadastrosClient.buscarClientePorId2(idCliente);
+
+        msComunicacoesClient.enviarEmailViaApiGateway(TemplateEmails.emailBloqueioConta(cliente, usuario.getMotivoBloqueio()));
 
         return null;
     }
@@ -95,7 +103,11 @@ public class UsuarioService {
         usuario.setMotivoBloqueio(null);
         repository.save(usuario);
 
-        //todo mandar email pro usuário informando que a conta foi desbloqueada
+        //Enviar email pro usuário informando que a conta foi desbloqueada
+        var idCliente = ((Integer) msCadastrosClient.buscarIdClientePorIdUsuario(idUsuario)).longValue();
+        var cliente = msCadastrosClient.buscarClientePorId2(idCliente);
+
+        msComunicacoesClient.enviarEmailViaApiGateway(TemplateEmails.emailDesbloqueioConta(cliente));
 
         return null;
     }

@@ -28,7 +28,8 @@ public class UsuarioController {
 
     @DeleteMapping("/{idUsuario}")
     public ResponseEntity<Void> excluirUsuarioPorId(@PathVariable Long idUsuario, @RequestHeader("AuthorizationApi") String tokenApi) {
-        usuarioService.excluirUsuarioPorId(idUsuario, tokenApi);
+        tokenService.validarTokenMs(tokenApi);
+        usuarioService.excluirUsuarioPorId(idUsuario);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -59,7 +60,7 @@ public class UsuarioController {
 
     @GetMapping("/buscar-status-bloqueio-contas")
     public ResponseEntity<List<StatusBloqueioContaResponse>> buscarStatusBloqueioContas(@RequestHeader("AuthorizationApi") String token) {
-        tokenService.validarTokenApiMsCadastro(token);
+        tokenService.validarTokenMs(token);
 
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.buscarStatusBloqueioContas());
     }
