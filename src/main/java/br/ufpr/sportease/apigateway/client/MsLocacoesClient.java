@@ -124,4 +124,9 @@ public class MsLocacoesClient {
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
+    public Object excluirComentario(Long idLocacao) {
+        String url = urlMsLocacoes + "/locacoes/comentarios/" + idLocacao;
+        HttpHeaders headers = gerarCabecalho();
+        return restTemplate.exchange(url, HttpMethod.DELETE, new HttpEntity<>(headers), Object.class).getBody();
+    }
 }

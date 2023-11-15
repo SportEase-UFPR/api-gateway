@@ -107,4 +107,10 @@ public class LocacaoController {
             @RequestBody Object avaliacaoReservaRequest) {
         return ResponseEntity.status(HttpStatus.OK).body(msLocacoesClient.avaliarReserva(idReserva, token, avaliacaoReservaRequest));
     }
+
+    @DeleteMapping("/comentarios/{idLocacao}")
+    @PreAuthorize("hasRole('ADM')")
+    public ResponseEntity<Object> excluirComentario(@PathVariable Long idLocacao) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(msLocacoesClient.excluirComentario(idLocacao));
+    }
 }
