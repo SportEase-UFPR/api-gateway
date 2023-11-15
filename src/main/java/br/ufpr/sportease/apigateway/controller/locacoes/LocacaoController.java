@@ -31,8 +31,9 @@ public class LocacaoController {
     @PostMapping("/horarios-disponiveis")
     @PreAuthorize("hasRole('CLIENTE') or hasRole('ADM')")
     public ResponseEntity<Object> verificarHorariosDisponiveisParaLocacao(
-            @RequestBody Object horarioDisponivelRequest) {
-        return ResponseEntity.status(HttpStatus.OK).body(msLocacoesClient.verificarHorariosDisponiveisParaLocacao(horarioDisponivelRequest));
+            @RequestBody Object horarioDisponivelRequest,
+            @RequestHeader("Authorization") String token) {
+        return ResponseEntity.status(HttpStatus.OK).body(msLocacoesClient.verificarHorariosDisponiveisParaLocacao(horarioDisponivelRequest, token));
     }
 
     @GetMapping("/listar-reservas-em-andamento")

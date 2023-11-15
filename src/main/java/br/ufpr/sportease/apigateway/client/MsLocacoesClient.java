@@ -42,9 +42,10 @@ public class MsLocacoesClient {
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
-    public Object verificarHorariosDisponiveisParaLocacao(Object request) {
+    public Object verificarHorariosDisponiveisParaLocacao(Object request, String token) {
         String url = urlMsLocacoes + "/locacoes/horarios-disponiveis";
         HttpHeaders headers = gerarCabecalho();
+        headers.set(AUTHORIZATION_USER, token);
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(request, headers), Object.class).getBody();
     }
 
