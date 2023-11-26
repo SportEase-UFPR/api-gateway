@@ -12,7 +12,7 @@
 4. Clone esse repositório e acesse a pasta
 
 ```sh
-https://github.com/SportEase-UFPR/api-gateway.git
+git clone https://github.com/SportEase-UFPR/api-gateway.git
 
 cd api-gateway/
 ```
