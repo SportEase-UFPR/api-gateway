@@ -1,0 +1,1 @@
+INSERT IGNORE INTO credenciais.tb_usuarios (id, ativa, login, nivel_acesso, senha, bloqueada) VALUES (1, true ,'adm@gmail.com', 'ROLE_ADM', '$2a$10$vavo6GdtwWFNy6aJQueJM.uXCPjsIwXu4KkwnmzT6Zu8Oa4VClIIm', false);
